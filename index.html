@@ -5,50 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Plumbing Water Savings Calculator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+        :root {
+            --primary-color: #2196F3;
+            --success-color: #4CAF50;
+            --text-color: #333;
+            --border-radius: 8px;
         }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
         .calculator {
             background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .input-group, .output-group {
-            margin-bottom: 15px;
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
         }
+
+        .button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .button-secondary {
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #d0d0d0;
+            transform: translateY(-2px);
+        }
+        
+        .input-section, .output-section {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
         label {
-            display: inline-block;
-            width: 250px;
-            margin-right: 10px;
+            font-weight: 500;
+            color: #555;
         }
+        
         input {
-            width: 150px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            width: 100%;
+            max-width: 300px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s ease;
         }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
         .result {
             background-color: #f8f9fa;
-            padding: 8px;
-            border-radius: 4px;
-            margin: 5px 0;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        
         .savings {
-            color: #28a745;
+            background-color: #e8f5e9;
+            border-left-color: var(--success-color);
+        }
+        
+        .savings span {
+            color: var(--success-color);
             font-weight: bold;
         }
+        
         h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-align: center;
         }
+        
         .separator {
-            border-top: 2px solid #eee;
-            margin: 20px 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                margin: 20px auto;
+            }
+            
+            .calculator {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .result {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -56,18 +157,23 @@
     <div class="calculator">
         <h1>Click Plumbing Water Savings Calculator</h1>
         
+        <div class="button-group">
+            <button class="button button-primary" id="fillAverage">Fill in with Average Customer Data</button>
+            <button class="button button-secondary" id="clearData">Clear Data</button>
+        </div>
+        
         <div class="input-section">
             <div class="input-group">
-                <label>Water Bill ($):</label>
-                <input type="number" id="waterBill" step="0.01" placeholder="e.g., 5000.00">
+                <label for="waterBill">Water Bill For A Given Period ($)</label>
+                <input type="number" id="waterBill" step="0.01" placeholder="Enter your current water bill e.g 5,000">
             </div>
             <div class="input-group">
-                <label>Number of Cars Washed:</label>
-                <input type="number" id="carsWashed" step="1" placeholder="e.g., 8400">
+                <label for="carsWashed">Number of Cars Washed During Same Period</label>
+                <input type="number" id="carsWashed" step="1" placeholder="Enter number of cars washed e.g 8,400">
             </div>
             <div class="input-group">
-                <label>Water Cost per 1000 gallons ($):</label>
-                <input type="number" id="waterCost" step="0.01" placeholder="e.g., 6.00">
+                <label for="waterCost">Water Cost per 1,000 gallons ($)</label>
+                <input type="number" id="waterCost" step="0.01" placeholder="Water cost per 1,000 gallons e.g $6.135">
             </div>
         </div>
 
@@ -75,36 +181,40 @@
 
         <div class="output-section">
             <div class="result">
-                <label>Total Water Used (gallons):</label>
-                <span id="totalWaterUsed">0</span>
+                <label>Total Water Used</label>
+                <span><span id="totalWaterUsed">0</span> gallons</span>
             </div>
             <div class="result">
-                <label>Could be with Click Plumbing (gallons):</label>
-                <span id="clickPlumbingWater">0</span>
+                <label>Potential Usage with Click Plumbing</label>
+                <span><span id="clickPlumbingWater">0</span> gallons</span>
             </div>
             <div class="result">
-                <label>Average Water a Click Plumbing Car Uses:</label>
-                <span>24.7</span>
+                <label>Average Water Usage Per Car With Machine Installed</label>
+                <span>24.7 gallons</span>
             </div>
             <div class="result">
-                <label>Your Gallons per Car:</label>
-                <span id="gallonsPerCar">0</span>
+                <label>Your Current Cost per Car</label>
+                <span>$<span id="costPerCar">0</span></span>
             </div>
             <div class="result">
-                <label>Cost Per Car ($):</label>
-                <span id="costPerCar">0</span>
+                <label>Your Current Water Usage per Car</label>
+                <span><span id="gallonsPerCar">0</span> gallons</span>
             </div>
             <div class="result">
-                <label>Could be with Click Plumbing ($):</label>
-                <span id="clickPlumbingCost">0</span>
+                <label>Your Potential Water Usage per Car with Click Plumbing Installed</label>
+                <span>$<span id="clickPlumbingCost">0</span></span>
             </div>
             <div class="result savings">
-                <label>Your Potential Savings per Period ($):</label>
-                <span id="potentialSavings">0</span>
+                <label>Potential Savings per Period</label>
+                <span>$<span id="potentialSavings">0</span></span>
             </div>
             <div class="result">
-                <label>How Much of Your Bill You Would Have to Pay:</label>
-                <span id="billPercentage">0</span>%
+                <label>How Much You Could Save on Your Water Bill</label>
+                <span><span id="billPercentage">0</span>%</span>
+            </div>
+            <div class="result savings">
+                <label>How Much More Per Period You Could Make</label>
+                <span>$<span id="additionalEarnings">0</span></span>
             </div>
         </div>
     </div>
@@ -139,7 +249,7 @@
             const costPerCar = (gallonsPerCar / 1000) * waterCost;
             const clickPlumbingCostPerCar = (CLICK_PLUMBING_GALLONS_PER_CAR / 1000) * waterCost;
             const potentialSavings = waterBill - ((clickPlumbingWater / 1000) * waterCost);
-            const billPercentage = waterBill ? ((clickPlumbingWater / 1000 * waterCost) / waterBill * 100) : 0;
+            const billPercentage = waterBill ? (potentialSavings / waterBill * 100) : 0;
 
             // Update display
             document.getElementById('totalWaterUsed').textContent = formatNumber(totalWaterUsed);
@@ -149,12 +259,32 @@
             document.getElementById('clickPlumbingCost').textContent = formatNumber(clickPlumbingCostPerCar);
             document.getElementById('potentialSavings').textContent = formatNumber(potentialSavings);
             document.getElementById('billPercentage').textContent = formatNumber(billPercentage);
+            document.getElementById('additionalEarnings').textContent = formatNumber(potentialSavings);
         }
 
-        // Add event listeners to inputs
+        // Function to fill in average customer data
+        function fillAverageData() {
+            waterBillInput.value = "5000";
+            carsWashedInput.value = "8400";
+            waterCostInput.value = "6.135";
+            calculateValues();
+        }
+
+        // Function to clear all data
+        function clearAllData() {
+            waterBillInput.value = "";
+            carsWashedInput.value = "";
+            waterCostInput.value = "";
+            calculateValues();
+        }
+
+        // Add event listeners to inputs and buttons
         waterBillInput.addEventListener('input', calculateValues);
         carsWashedInput.addEventListener('input', calculateValues);
         waterCostInput.addEventListener('input', calculateValues);
+        
+        document.getElementById('fillAverage').addEventListener('click', fillAverageData);
+        document.getElementById('clearData').addEventListener('click', clearAllData);
     </script>
 </body>
 </html>
