@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Plumbing Water Savings Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .input-group, .output-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 250px;
+            margin-right: 10px;
+        }
+        input {
+            width: 150px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result {
+            background-color: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        .savings {
+            color: #28a745;
+            font-weight: bold;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .separator {
+            border-top: 2px solid #eee;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Click Plumbing Water Savings Calculator</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label>Water Bill ($):</label>
+                <input type="number" id="waterBill" step="0.01" placeholder="e.g., 5000.00">
+            </div>
+            <div class="input-group">
+                <label>Number of Cars Washed:</label>
+                <input type="number" id="carsWashed" step="1" placeholder="e.g., 8400">
+            </div>
+            <div class="input-group">
+                <label>Water Cost per 1000 gallons ($):</label>
+                <input type="number" id="waterCost" step="0.01" placeholder="e.g., 6.00">
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="output-section">
+            <div class="result">
+                <label>Total Water Used (gallons):</label>
+                <span id="totalWaterUsed">0</span>
+            </div>
+            <div class="result">
+                <label>Could be with Click Plumbing (gallons):</label>
+                <span id="clickPlumbingWater">0</span>
+            </div>
+            <div class="result">
+                <label>Average Water a Click Plumbing Car Uses:</label>
+                <span>24.7</span>
+            </div>
+            <div class="result">
+                <label>Your Gallons per Car:</label>
+                <span id="gallonsPerCar">0</span>
+            </div>
+            <div class="result">
+                <label>Cost Per Car ($):</label>
+                <span id="costPerCar">0</span>
+            </div>
+            <div class="result">
+                <label>Could be with Click Plumbing ($):</label>
+                <span id="clickPlumbingCost">0</span>
+            </div>
+            <div class="result savings">
+                <label>Your Potential Savings per Period ($):</label>
+                <span id="potentialSavings">0</span>
+            </div>
+            <div class="result">
+                <label>How Much of Your Bill You Would Have to Pay:</label>
+                <span id="billPercentage">0</span>%
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const CLICK_PLUMBING_GALLONS_PER_CAR = 24.7;
+
+        // Get all input elements
+        const waterBillInput = document.getElementById('waterBill');
+        const carsWashedInput = document.getElementById('carsWashed');
+        const waterCostInput = document.getElementById('waterCost');
+
+        // Function to format numbers with commas and decimal places
+        function formatNumber(number, decimals = 2) {
+            return number.toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+        }
+
+        // Function to calculate all values
+        function calculateValues() {
+            const waterBill = parseFloat(waterBillInput.value) || 0;
+            const carsWashed = parseFloat(carsWashedInput.value) || 0;
+            const waterCost = parseFloat(waterCostInput.value) || 0;
+
+            // Calculate all values
+            const totalWaterUsed = waterCost ? (waterBill / waterCost * 1000) : 0;
+            const clickPlumbingWater = CLICK_PLUMBING_GALLONS_PER_CAR * carsWashed;
+            const gallonsPerCar = carsWashed ? (totalWaterUsed / carsWashed) : 0;
+            const costPerCar = (gallonsPerCar / 1000) * waterCost;
+            const clickPlumbingCostPerCar = (CLICK_PLUMBING_GALLONS_PER_CAR / 1000) * waterCost;
+            const potentialSavings = waterBill - ((clickPlumbingWater / 1000) * waterCost);
+            const billPercentage = waterBill ? ((clickPlumbingWater / 1000 * waterCost) / waterBill * 100) : 0;
+
+            // Update display
+            document.getElementById('totalWaterUsed').textContent = formatNumber(totalWaterUsed);
+            document.getElementById('clickPlumbingWater').textContent = formatNumber(clickPlumbingWater);
+            document.getElementById('gallonsPerCar').textContent = formatNumber(gallonsPerCar);
+            document.getElementById('costPerCar').textContent = formatNumber(costPerCar);
+            document.getElementById('clickPlumbingCost').textContent = formatNumber(clickPlumbingCostPerCar);
+            document.getElementById('potentialSavings').textContent = formatNumber(potentialSavings);
+            document.getElementById('billPercentage').textContent = formatNumber(billPercentage);
+        }
+
+        // Add event listeners to inputs
+        waterBillInput.addEventListener('input', calculateValues);
+        carsWashedInput.addEventListener('input', calculateValues);
+        waterCostInput.addEventListener('input', calculateValues);
+    </script>
+</body>
+</html>
