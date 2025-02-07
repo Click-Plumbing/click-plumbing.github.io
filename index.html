@@ -213,7 +213,7 @@
                 <span><span id="billPercentage">0</span>%</span>
             </div>
             <div class="result savings">
-                <label>How Much More Per Period You Could Make</label>
+                <label>How Much More Per Year You Could Make</label>
                 <span>$<span id="additionalEarnings">0</span></span>
             </div>
         </div>
@@ -259,7 +259,7 @@
             document.getElementById('clickPlumbingCost').textContent = formatNumber(clickPlumbingCostPerCar);
             document.getElementById('potentialSavings').textContent = formatNumber(potentialSavings);
             document.getElementById('billPercentage').textContent = formatNumber(billPercentage);
-            document.getElementById('additionalEarnings').textContent = formatNumber(potentialSavings);
+            document.getElementById('additionalEarnings').textContent = formatNumber(potentialSavings * 12);
         }
 
         // Function to fill in average customer data
