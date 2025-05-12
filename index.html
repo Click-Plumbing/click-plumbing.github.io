@@ -3,293 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click Plumbing Wash Water Savings Calculator</title>
+    <title>Car Wash Water Savings Calculator</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        :root {
-            --primary-color: #2196F3;
-            --success-color: #4CAF50;
-            --text-color: #333;
-            --border-radius: 8px;
-        }
-        
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
             background-color: #f8f9fa;
-            color: var(--text-color);
-            line-height: 1.6;
+            padding-top: 2rem;
         }
-        
-        .calculator {
+        .calculator-container {
             background-color: white;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-
-        .button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .button-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .button-primary:hover {
-            background-color: #1976D2;
-            transform: translateY(-2px);
-        }
-
-        .button-secondary {
-            background-color: #e0e0e0;
-            color: var(--text-color);
-        }
-
-        .button-secondary:hover {
-            background-color: #d0d0d0;
-            transform: translateY(-2px);
-        }
-        
-        .input-section, .output-section {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        label {
-            font-weight: 500;
-            color: #555;
-        }
-        
-        input {
-            width: 100%;
-            max-width: 400px;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-        
-        .result {
+        /* Style for read-only fields */
+        .form-control[readonly] {
             background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--primary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            color: #6c757d;
+            cursor: not-allowed;
         }
-        
-        .savings {
-            background-color: #e8f5e9;
-            border-left-color: var(--success-color);
+        /* Remove up/down arrows (spinners) from number inputs */
+        /* For Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
-        
-        .savings span {
-            color: var(--success-color);
+        /* For Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield; /* Standard property for compatibility */
+        }
+        .results-container {
+            background-color: #e9f7fe;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .savings-highlight {
+            color: #28a745;
             font-weight: bold;
         }
-        
         h1 {
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 1.5rem;
         }
-        
-        .separator {
+        .form-label {
+            font-weight: 500;
+        }
+        .input-group-text {
+            background-color: #0d6efd;
+            color: white;
             border: none;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #e0e0e0, transparent);
-            margin: 30px 0;
         }
         
-        @media (max-width: 768px) {
+        /* Print styles */
+        @media print {
             body {
-                padding: 15px;
-                margin: 20px auto;
+                padding: 0;
+                background-color: white;
             }
-            
-            .calculator {
-                padding: 20px;
+            .calculator-container {
+                box-shadow: none;
+                padding: 0;
             }
-            
-            h1 {
-                font-size: 2em;
+            .form-check, #printButtonContainer > button {
+                display: none !important;
             }
-            
-            .result {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+            .results-container {
+                break-inside: avoid;
             }
+            /* Company header for printed report */
+            .print-header {
+                display: block !important;
+                margin-bottom: 20px;
+            }
+            /* Make sure contact info is included in print */
+            #printButtonContainer {
+                display: block !important;
+            }
+            #printButtonContainer .bg-light {
+                background-color: white !important;
+                border: 1px solid #dee2e6;
+                margin-top: 30px !important;
+            }
+        }
+        
+        .print-header {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <h1>Click Plumbing Wash Water Savings Calculator</h1>
-        
-        <div class="button-group">
-            <button class="button button-primary" id="fillAverage">Fill in with Average Customer Data</button>
-            <button class="button button-secondary" id="clearData">Clear Data</button>
-        </div>
-        
-        <div class="input-section">
-            <div class="input-group">
-                <label for="waterBill">Water Bill For A Given Period ($)</label>
-                <input type="number" id="waterBill" step="0.01" placeholder="Enter your current water bill e.g 5,000">
-            </div>
-            <div class="input-group">
-                <label for="carsWashed">Number of Cars Washed During Same Period</label>
-                <input type="number" id="carsWashed" step="1" placeholder="Enter number of cars washed e.g 18.000">
-            </div>
-            <div class="input-group">
-                <label for="waterCost">Water Cost per 1,000 gallons ($)</label>
-                <input type="number" id="waterCost" step="0.01" placeholder="Water cost per 1,000 gallons e.g $6.135">
-            </div>
-        </div>
-
-        <div class="separator"></div>
-
-        <div class="output-section">
-            <div class="result">
-                <label>Total Water Used</label>
-                <span><span id="totalWaterUsed">0</span> gallons</span>
-            </div>
-            <div class="result">
-                <label>Potential Usage with Click Plumbing</label>
-                <span><span id="clickPlumbingWater">0</span> gallons</span>
-            </div>
-            <div class="result">
-                <label>Average Water Usage Per Car With Machine Installed</label>
-                <span>14.7 gallons</span>
-            </div>
-            <div class="result">
-                <label>Your Current Cost per Car</label>
-                <span>$<span id="costPerCar">0</span></span>
-            </div>
-            <div class="result">
-                <label>Your Current Water Usage per Car</label>
-                <span><span id="gallonsPerCar">0</span> gallons</span>
-            </div>
-            <div class="result">
-                <label>Your Potential Water Usage per Car with Click Plumbing Installed</label>
-                <span>$<span id="clickPlumbingCost">0</span></span>
-            </div>
-            <div class="result savings">
-                <label>Potential Savings per Period</label>
-                <span>$<span id="potentialSavings">0</span></span>
-            </div>
-            <div class="result">
-                <label>How Much You Could Save on Your Water Bill</label>
-                <span><span id="billPercentage">0</span>%</span>
-            </div>
-            <div class="result savings">
-                <label>How Much More Per Year You Could Make</label>
-                <span>$<span id="additionalEarnings">0</span></span>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="calculator-container">
+                    <h1 class="text-center">Car Wash Water Savings Calculator</h1>
+                    
+                    <form id="calculatorForm">
+                        <div class="mb-3">
+                            <label for="carsPerDay" class="form-label">Number of Cars Per Day</label>
+                            <div class="input-group">
+                                <span class="input-group-text">🚗</span>
+                                <input type="number" class="form-control" id="carsPerDay" min="1" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="waterBill" class="form-label">Monthly Water Bill ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">💧</span>
+                                <input type="number" class="form-control" id="waterBill" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sewerBill" class="form-label">Monthly Sewer Bill ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">🚿</span>
+                                <input type="number" class="form-control" id="sewerBill" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="gallonsPerCar" class="form-label">Current Gallons Used Per Car</label>
+                            <div class="input-group">
+                                <span class="input-group-text">🚰</span>
+                                <input type="text" class="form-control bg-light text-secondary" id="gallonsPerCar" readonly>
+                                <span class="input-group-text">gal</span>
+                            </div>
+                            <small class="text-muted">Calculated from your water/sewer bills and car count</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="costPerCar" class="form-label">Water and Sewer Cost Per Car</label>
+                            <div class="input-group">
+                                <span class="input-group-text">💰</span>
+                                <input type="text" class="form-control bg-light text-secondary" id="costPerCar" readonly>
+                                <span class="input-group-text">per car</span>
+                            </div>
+                            <small class="text-muted">(Water Bill + Sewer Bill) ÷ (Cars Per Day × 30.25 Days in a Month)</small>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="sewerDiscount">
+                            <label class="form-check-label" for="sewerDiscount">
+                                I want you to petition my city to drop my sewer bill by 80% for using a full reclaim system like yours.
+                            </label>
+                        </div>
+                        
+                        <div class="results-container" id="resultsContainer">
+                            <h4 class="text-center mb-4">Your Savings Summary</h4>
+                            <div id="results">
+                                <p class="text-center text-muted">Enter your information above to see potential savings.</p>
+                            </div>
+                            <div class="text-center mt-4" id="printButtonContainer" style="display: none;">
+                                <button type="button" class="btn btn-primary" id="printReportBtn">
+                                    <i class="bi bi-printer"></i> Print Report
+                                </button>
+                                <div class="mt-4 p-3 bg-light rounded">
+                                    <p class="mb-1"><strong>Want to speak with us about making this report a reality?</strong></p>
+                                    <p class="mb-1">Even if you already have reclaim we can install an "adder package" at a lower cost than a full unit.</p>
+                                    <p class="mb-0">Call us and leave a message at <a href="tel:18012525155">1-801-252-5155</a> or email us at <a href="mailto:support@clickplumbing.com">support@clickplumbing.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Constants
-        const CLICK_PLUMBING_GALLONS_PER_CAR = 14.7;
-
-        // Get all input elements
-        const waterBillInput = document.getElementById('waterBill');
-        const carsWashedInput = document.getElementById('carsWashed');
-        const waterCostInput = document.getElementById('waterCost');
-
-        // Function to format numbers with commas and decimal places
-        function formatNumber(number, decimals = 2) {
-            return number.toLocaleString('en-US', {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals
-            });
-        }
-
-        // Function to calculate all values
-        function calculateValues() {
-            const waterBill = parseFloat(waterBillInput.value) || 0;
-            const carsWashed = parseFloat(carsWashedInput.value) || 0;
-            const waterCost = parseFloat(waterCostInput.value) || 0;
-
-            // Calculate all values
-            const totalWaterUsed = waterCost ? (waterBill / waterCost * 1000) : 0;
-            const clickPlumbingWater = CLICK_PLUMBING_GALLONS_PER_CAR * carsWashed;
-            const gallonsPerCar = carsWashed ? (totalWaterUsed / carsWashed) : 0;
-            const costPerCar = (gallonsPerCar / 1000) * waterCost;
-            const clickPlumbingCostPerCar = (CLICK_PLUMBING_GALLONS_PER_CAR / 1000) * waterCost;
-            const potentialSavings = waterBill - ((clickPlumbingWater / 1000) * waterCost);
-            const billPercentage = waterBill ? (potentialSavings / waterBill * 100) : 0;
-
-            // Update display
-            document.getElementById('totalWaterUsed').textContent = formatNumber(totalWaterUsed);
-            document.getElementById('clickPlumbingWater').textContent = formatNumber(clickPlumbingWater);
-            document.getElementById('gallonsPerCar').textContent = formatNumber(gallonsPerCar);
-            document.getElementById('costPerCar').textContent = formatNumber(costPerCar);
-            document.getElementById('clickPlumbingCost').textContent = formatNumber(clickPlumbingCostPerCar);
-            document.getElementById('potentialSavings').textContent = formatNumber(potentialSavings);
-            document.getElementById('billPercentage').textContent = formatNumber(billPercentage);
-            document.getElementById('additionalEarnings').textContent = formatNumber(potentialSavings * 12);
-        }
-
-        // Function to fill in average customer data
-        function fillAverageData() {
-            waterBillInput.value = "5000";
-            carsWashedInput.value = "18000";
-            waterCostInput.value = "6.135";
-            calculateValues();
-        }
-
-        // Function to clear all data
-        function clearAllData() {
-            waterBillInput.value = "";
-            carsWashedInput.value = "";
-            waterCostInput.value = "";
-            calculateValues();
-        }
-
-        // Add event listeners to inputs and buttons
-        waterBillInput.addEventListener('input', calculateValues);
-        carsWashedInput.addEventListener('input', calculateValues);
-        waterCostInput.addEventListener('input', calculateValues);
-        
-        document.getElementById('fillAverage').addEventListener('click', fillAverageData);
-        document.getElementById('clearData').addEventListener('click', clearAllData);
-    </script>
-    <p style="text-align: center; margin-top: 30px;">Please contact <a href="mailto:sales@clickplumbing.com">sales@clickplumbing.com</a> or call <a href="tel:+18012525155">+1 801 252 5155</a> for service.</p>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 40px;">
-        <a href="https://clickplumbing.com" target="_blank"><img src="logo.svg" alt="Click Plumbing Logo" style="height: 60px; width: auto;"></a>
-    </div>
+    <script>
+        // Get all form elements
+        const form = document.getElementById('calculatorForm');
+        const carsPerDayInput = document.getElementById('carsPerDay');
+        const waterBillInput = document.getElementById('waterBill');
+        const sewerBillInput = document.getElementById('sewerBill');
+        const gallonsPerCarInput = document.getElementById('gallonsPerCar');
+        const costPerCarInput = document.getElementById('costPerCar');
+        const sewerDiscountCheckbox = document.getElementById('sewerDiscount');
+        const resultsDiv = document.getElementById('results');
+        const printReportBtn = document.getElementById('printReportBtn');
+        
+        // Add event listeners to all inputs
+        const inputs = [carsPerDayInput, waterBillInput, sewerBillInput, sewerDiscountCheckbox];
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateSavings);
+        });
+        
+        // Add print button functionality
+        printReportBtn.addEventListener('click', function() {
+            window.print();
+        });
+        
+        // Main calculation function
+        function calculateSavings() {
+            // Get input values
+            const carsPerDay = parseFloat(carsPerDayInput.value) || 0;
+            const waterBill = parseFloat(waterBillInput.value) || 0;
+            const sewerBill = parseFloat(sewerBillInput.value) || 0;
+            const applySewerDiscount = sewerDiscountCheckbox.checked;
+            
+            // Check if we have all required inputs
+            if (carsPerDay <= 0 || waterBill < 0 || sewerBill < 0) {
+                resultsDiv.innerHTML = '<p class="text-center text-muted">Please enter valid values in all fields.</p>';
+                return;
+            }
+            
+            // Calculate gallons per car based on the first three variables
+            // Assuming industry standard of 40 gallons per car if we can't calculate
+            let gallonsPerCar = 40; // Default value
+            
+            // Calculate total monthly cars
+            const totalMonthlyCars = carsPerDay * 30;
+            
+            // If we have valid bills and car count, calculate gallons per car
+            if (carsPerDay > 0 && (waterBill > 0 || sewerBill > 0)) {
+                // Estimate total monthly gallons based on typical water costs
+                // This is a simplified calculation - in reality, would need local water rates
+                // Assuming average water cost of $0.005 per gallon (including sewer)
+                const totalMonthlyBill = waterBill + sewerBill;
+                const estimatedTotalGallons = totalMonthlyBill / 0.005;
+                gallonsPerCar = estimatedTotalGallons / totalMonthlyCars;
+                
+                // Round to nearest whole number for display
+                gallonsPerCar = Math.round(gallonsPerCar);
+                
+                // Ensure minimum reasonable value (at least 20 gallons)
+                gallonsPerCar = Math.max(20, gallonsPerCar);
+            }
+            
+            // Update the gallons per car input field
+            gallonsPerCarInput.value = gallonsPerCar;
+            
+            // Calculate water and sewer cost per car (using 30.25 days per month as requested)
+            const costPerCar = (waterBill + sewerBill) / (carsPerDay * 30.25);
+            costPerCarInput.value = '$' + costPerCar.toFixed(2);
+            
+            // Calculate total gallons
+            const totalGallons = totalMonthlyCars * gallonsPerCar;
+            
+            // Apply sewer discount if checkbox is checked
+            const effectiveSewerBill = applySewerDiscount ? sewerBill * 0.2 : sewerBill;
+            
+            // Calculate cost per gallon
+            const costPerGallon = (waterBill + effectiveSewerBill) / totalGallons;
+            
+            // Calculate current and new costs
+            const currentCostPerCar = costPerGallon * gallonsPerCar;
+            const newCostPerCar = costPerGallon * 13; // 13 gallons with new system
+            
+            // Calculate savings
+            const savingsPerCar = currentCostPerCar - newCostPerCar;
+            const monthlySavings = savingsPerCar * totalMonthlyCars;
+            
+            // Format results
+            const formatCurrency = (value) => '$' + value.toFixed(2);
+            
+            // Generate results HTML
+            let resultsHTML = `
+                <div class="print-header">
+                    <h2>Click Plumbing Water Savings Report</h2>
+                    <p>Date: ${new Date().toLocaleDateString()}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Total Monthly Cars:</strong> ${totalMonthlyCars.toLocaleString()}</p>
+                        <p><strong>Total Gallons Used:</strong> ${totalGallons.toLocaleString()} gallons</p>
+                        <p><strong>Cost Per Car (Current):</strong> ${formatCurrency(currentCostPerCar)}</p>
+                        <p><strong>Cost Per Car (New System):</strong> ${formatCurrency(newCostPerCar)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Per-Car Savings:</strong> <span class="savings-highlight">${formatCurrency(savingsPerCar)}</span></p>
+                        <p><strong>Monthly Savings:</strong> <span class="savings-highlight">${formatCurrency(monthlySavings)}</span></p>
+                        <p><strong>Annual Savings:</strong> <span class="savings-highlight">${formatCurrency(monthlySavings * 12)}</span></p>
+                        ${applySewerDiscount ? '<p><strong>Note:</strong> 80% sewer discount applied</p>' : ''}
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <p class="mb-0"><small>Based on reducing water usage from ${gallonsPerCar} gallons to 13 gallons per car with our reclaim system.</small></p>
+                    <p class="mb-0"><small>Calculated from your monthly water bill ($${waterBill}), sewer bill ($${sewerBill}), and ${carsPerDay} cars per day.</small></p>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML = resultsHTML;
+            
+            // Show print button when we have valid results
+            document.getElementById('printButtonContainer').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
