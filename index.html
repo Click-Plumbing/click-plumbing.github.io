@@ -111,6 +111,18 @@
                                 <span class="input-group-text">🚗</span>
                                 <input type="number" class="form-control" id="carsPerDay" min="1" required>
                             </div>
+                            <div class="text-end mt-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="seeAverageBtn">See Tunnel Wash Average</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="costPer1000Gallons" class="form-label">Cost Per 1000 Gallons: <span id="costPer1000GallonsValue">$15.00</span></label>
+                            <input type="range" class="form-range" id="costPer1000Gallons" min="6" max="24" step="0.5" value="15">
+                            <div class="d-flex justify-content-between small text-muted">
+                                <span>$6.00</span>
+                                <span>$24.00</span>
+                            </div>
                         </div>
                         
                         <div class="mb-3">
@@ -129,25 +141,7 @@
                             </div>
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="gallonsPerCar" class="form-label">Current Gallons Used Per Car</label>
-                            <div class="input-group">
-                                <span class="input-group-text">🚰</span>
-                                <input type="text" class="form-control bg-light text-secondary" id="gallonsPerCar" readonly>
-                                <span class="input-group-text">gal</span>
-                            </div>
-                            <small class="text-muted">Calculated from your water/sewer bills and car count</small>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="costPerCar" class="form-label">Water and Sewer Cost Per Car</label>
-                            <div class="input-group">
-                                <span class="input-group-text">💰</span>
-                                <input type="text" class="form-control bg-light text-secondary" id="costPerCar" readonly>
-                                <span class="input-group-text">per car</span>
-                            </div>
-                            <small class="text-muted">(Water Bill + Sewer Bill) ÷ (Cars Per Day × 30.25 Days in a Month)</small>
-                        </div>
+
                         
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="sewerDiscount">
@@ -158,6 +152,36 @@
                         
                         <div class="results-container" id="resultsContainer">
                             <h4 class="text-center mb-4">Your Savings Summary</h4>
+                            
+                            <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">Current Gallons Used Per Car</h5>
+                                                <div class="d-flex align-items-center justify-content-center my-3">
+                                                    <span class="fs-1 me-2">🚰</span>
+                                                    <h2 class="mb-0"><span id="gallonsPerCar">--</span> <small>gal</small></h2>
+                                                </div>
+                                                <p class="card-text text-muted small">Calculated from your water bill, cost per gallon, and car count</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">Water and Sewer Cost Per Car</h5>
+                                                <div class="d-flex align-items-center justify-content-center my-3">
+                                                    <span class="fs-1 me-2">💰</span>
+                                                    <h2 class="mb-0">$<span id="costPerCar">--</span></h2>
+                                                </div>
+                                                <p class="card-text text-muted small">(Water Bill + Sewer Bill) ÷ (Cars Per Day × 30.25 Days in a Month)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div id="results">
                                 <p class="text-center text-muted">Enter your information above to see potential savings.</p>
                             </div>
@@ -167,8 +191,7 @@
                                 </button>
                                 <div class="mt-4 p-3 bg-light rounded">
                                     <p class="mb-1"><strong>Want to speak with us about making this report a reality?</strong></p>
-                                    <p class="mb-1">Even if you already have reclaim we can install an "adder package" at a lower cost than a full unit.</p>
-                                    <p class="mb-0">Call us and leave a message at <a href="tel:18012525155">1-801-252-5155</a> or email us at <a href="mailto:support@clickplumbing.com">support@clickplumbing.com</a></p>
+                                    <p class="mb-0">Even if you already have reclaim we can install an "adder package" at a lower cost than a full unit. Call us and leave a message at <a href="tel:18012525155">1-801-252-5155</a> or email us at <a href="mailto:support@clickplumbing.com">support@clickplumbing.com</a></p>
                                 </div>
                             </div>
                         </div>
@@ -185,23 +208,52 @@
         // Get all form elements
         const form = document.getElementById('calculatorForm');
         const carsPerDayInput = document.getElementById('carsPerDay');
+        const costPer1000GallonsSlider = document.getElementById('costPer1000Gallons');
+        const costPer1000GallonsValue = document.getElementById('costPer1000GallonsValue');
         const waterBillInput = document.getElementById('waterBill');
         const sewerBillInput = document.getElementById('sewerBill');
-        const gallonsPerCarInput = document.getElementById('gallonsPerCar');
-        const costPerCarInput = document.getElementById('costPerCar');
+        const gallonsPerCarElement = document.getElementById('gallonsPerCar');
+        const costPerCarElement = document.getElementById('costPerCar');
         const sewerDiscountCheckbox = document.getElementById('sewerDiscount');
         const resultsDiv = document.getElementById('results');
         const printReportBtn = document.getElementById('printReportBtn');
+        const seeAverageBtn = document.getElementById('seeAverageBtn');
         
         // Add event listeners to all inputs
-        const inputs = [carsPerDayInput, waterBillInput, sewerBillInput, sewerDiscountCheckbox];
+        const inputs = [carsPerDayInput, costPer1000GallonsSlider, waterBillInput, sewerBillInput, sewerDiscountCheckbox];
         inputs.forEach(input => {
             input.addEventListener('input', calculateSavings);
+        });
+        
+        // Update the cost per 1000 gallons value display when slider changes
+        costPer1000GallonsSlider.addEventListener('input', function() {
+            costPer1000GallonsValue.textContent = '$' + parseFloat(this.value).toFixed(2);
+        });
+        
+        // Prevent scroll wheel from changing number input values
+        const numberInputs = document.querySelectorAll('input[type="number"]');
+        numberInputs.forEach(input => {
+            input.addEventListener('wheel', function(e) {
+                e.preventDefault();
+            }, { passive: false });
         });
         
         // Add print button functionality
         printReportBtn.addEventListener('click', function() {
             window.print();
+        });
+        
+        // Add See Average button functionality
+        seeAverageBtn.addEventListener('click', function() {
+            // Set average values
+            carsPerDayInput.value = 150;
+            waterBillInput.value = 10000;
+            sewerBillInput.value = 5000;
+            costPer1000GallonsSlider.value = 15;
+            costPer1000GallonsValue.textContent = '$15.00';
+            
+            // Trigger calculation
+            calculateSavings();
         });
         
         // Main calculation function
@@ -218,48 +270,69 @@
                 return;
             }
             
-            // Calculate gallons per car based on the first three variables
-            // Assuming industry standard of 40 gallons per car if we can't calculate
-            let gallonsPerCar = 40; // Default value
+            // Initialize gallons per car
+            let gallonsPerCar = null; // No default value
             
             // Calculate total monthly cars
             const totalMonthlyCars = carsPerDay * 30;
             
-            // If we have valid bills and car count, calculate gallons per car
-            if (carsPerDay > 0 && (waterBill > 0 || sewerBill > 0)) {
-                // Estimate total monthly gallons based on typical water costs
-                // This is a simplified calculation - in reality, would need local water rates
-                // Assuming average water cost of $0.005 per gallon (including sewer)
-                const totalMonthlyBill = waterBill + sewerBill;
-                const estimatedTotalGallons = totalMonthlyBill / 0.005;
+            // Only calculate gallons per car if we have both car count and water bill
+            if (carsPerDay > 0 && waterBill > 0) {
+                // Get the cost per 1000 gallons from the slider
+                const costPer1000Gallons = parseFloat(costPer1000GallonsSlider.value);
+                
+                // Convert to cost per gallon (divide by 1000)
+                const costPerGallon = costPer1000Gallons / 1000;
+                
+                // Estimate total monthly gallons based on water bill and the slider value
+                const estimatedTotalGallons = waterBill / costPerGallon;
                 gallonsPerCar = estimatedTotalGallons / totalMonthlyCars;
                 
                 // Round to nearest whole number for display
                 gallonsPerCar = Math.round(gallonsPerCar);
                 
-                // Ensure minimum reasonable value (at least 20 gallons)
-                gallonsPerCar = Math.max(20, gallonsPerCar);
+                // Ensure value is between 5 and 5000 gallons
+                gallonsPerCar = Math.max(5, Math.min(5000, gallonsPerCar));
             }
             
-            // Update the gallons per car input field
-            gallonsPerCarInput.value = gallonsPerCar;
+            // Update the gallons per car display
+            if (gallonsPerCar !== null) {
+                if (gallonsPerCar <= 5) {
+                    gallonsPerCarElement.textContent = '5 or less';
+                } else if (gallonsPerCar >= 5000) {
+                    gallonsPerCarElement.textContent = '5000 or more';
+                } else {
+                    gallonsPerCarElement.textContent = gallonsPerCar;
+                }
+            } else {
+                gallonsPerCarElement.textContent = '--';
+            }
             
             // Calculate water and sewer cost per car (using 30.25 days per month as requested)
-            const costPerCar = (waterBill + sewerBill) / (carsPerDay * 30.25);
-            costPerCarInput.value = '$' + costPerCar.toFixed(2);
+            if (carsPerDay > 0 && (waterBill > 0 || sewerBill > 0)) {
+                const costPerCar = (waterBill + sewerBill) / (carsPerDay * 30.25);
+                costPerCarElement.textContent = costPerCar.toFixed(2);
+            } else {
+                costPerCarElement.textContent = '--';
+            }
             
             // Calculate total gallons
-            const totalGallons = totalMonthlyCars * gallonsPerCar;
+            const totalGallons = gallonsPerCar !== null ? totalMonthlyCars * gallonsPerCar : 0;
             
-            // Apply sewer discount if checkbox is checked
+            // Calculate cost per gallon for current system (no discount)
+            const currentCostPerGallon = (waterBill + sewerBill) / totalGallons;
+            
+            // Calculate current cost per car (no discount)
+            const currentCostPerCar = currentCostPerGallon * gallonsPerCar;
+            
+            // Apply sewer discount only for new system if checkbox is checked
             const effectiveSewerBill = applySewerDiscount ? sewerBill * 0.2 : sewerBill;
             
-            // Calculate cost per gallon
-            const costPerGallon = (waterBill + effectiveSewerBill) / totalGallons;
+            // Calculate cost per gallon for new system (with discount if applied)
+            const newSystemCostPerGallon = (waterBill + effectiveSewerBill) / totalGallons;
             
-            // Calculate current and new costs
-            const currentCostPerCar = costPerGallon * gallonsPerCar;
-            const newCostPerCar = costPerGallon * 13; // 13 gallons with new system
+            // Calculate new system cost per car (with discount if applied)
+            const newCostPerCar = newSystemCostPerGallon * 13; // 13 gallons with new system
             
             // Calculate savings
             const savingsPerCar = currentCostPerCar - newCostPerCar;
@@ -276,21 +349,20 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong>Total Monthly Cars:</strong> ${totalMonthlyCars.toLocaleString()}</p>
-                        <p><strong>Total Gallons Used:</strong> ${totalGallons.toLocaleString()} gallons</p>
-                        <p><strong>Cost Per Car (Current):</strong> ${formatCurrency(currentCostPerCar)}</p>
-                        <p><strong>Cost Per Car (New System):</strong> ${formatCurrency(newCostPerCar)}</p>
+                        <p><strong>Current Monthly Cars:</strong> ${totalMonthlyCars.toLocaleString()}</p>
+                        <p><strong>Current Monthly Gallons:</strong> ${totalGallons.toLocaleString()}</p>
+                        <p><strong>Your Cost Per Car:</strong> ${formatCurrency(currentCostPerCar)}</p>
+                        <p><strong>Potential Water Cost Per Car:</strong> ${formatCurrency(newCostPerCar)}</p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Per-Car Savings:</strong> <span class="savings-highlight">${formatCurrency(savingsPerCar)}</span></p>
-                        <p><strong>Monthly Savings:</strong> <span class="savings-highlight">${formatCurrency(monthlySavings)}</span></p>
-                        <p><strong>Annual Savings:</strong> <span class="savings-highlight">${formatCurrency(monthlySavings * 12)}</span></p>
+                        <p><strong>Monthly Savings:</strong> <span class="savings-highlight">$${monthlySavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></p>
+                        <p><strong>Annual Savings:</strong> <span class="savings-highlight">$${(monthlySavings * 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></p>
                         ${applySewerDiscount ? '<p><strong>Note:</strong> 80% sewer discount applied</p>' : ''}
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <p class="mb-0"><small>Based on reducing water usage from ${gallonsPerCar} gallons to 13 gallons per car with our reclaim system.</small></p>
-                    <p class="mb-0"><small>Calculated from your monthly water bill ($${waterBill}), sewer bill ($${sewerBill}), and ${carsPerDay} cars per day.</small></p>
+                    <p class="mb-0"><small>We think you may be able to reduce your per car water usage from ${gallonsPerCar} gallons to 13 gallons per car with our reclaim system. Based on you reporting a $${waterBill.toLocaleString()} water bill, $${sewerBill.toLocaleString()} sewer bill, and ${carsPerDay.toLocaleString()} cars per day.</small></p>
                 </div>
             `;
             
