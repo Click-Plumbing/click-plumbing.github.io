@@ -1,0 +1,35 @@
+{
+  "name": "clickplumbing-website",
+  "version": "1.0.0",
+  "description": "Professional website for ClickPlumbing - Commercial Plumbing, Electrical & HVAC Services",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/",
+    "build": "echo 'Static website - no build process needed'",
+    "deploy": "echo 'Ready for deployment to any static hosting service'"
+  },
+  "keywords": [
+    "plumbing",
+    "electrical",
+    "hvac",
+    "commercial",
+    "services",
+    "website",
+    "business"
+  ],
+  "author": "ClickPlumbing",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clickplumbing/website.git"
+  },
+  "homepage": "https://clickplumbing.com",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

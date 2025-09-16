@@ -3,374 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Wash Water Savings Calculator</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding-top: 2rem;
-        }
-        .calculator-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        /* Style for read-only fields */
-        .form-control[readonly] {
-            background-color: #f8f9fa;
-            color: #6c757d;
-            cursor: not-allowed;
-        }
-        /* Remove up/down arrows (spinners) from number inputs */
-        /* For Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        /* For Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield; /* Standard property for compatibility */
-        }
-        .results-container {
-            background-color: #e9f7fe;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        .savings-highlight {
-            color: #28a745;
-            font-weight: bold;
-        }
-        h1 {
-            color: #0d6efd;
-            margin-bottom: 1.5rem;
-        }
-        .form-label {
-            font-weight: 500;
-        }
-        .input-group-text {
-            background-color: #0d6efd;
-            color: white;
-            border: none;
-        }
-        
-        /* Print styles */
-        @media print {
-            body {
-                padding: 0;
-                background-color: white;
-            }
-            .calculator-container {
-                box-shadow: none;
-                padding: 0;
-            }
-            .form-check, #printButtonContainer > button {
-                display: none !important;
-            }
-            .results-container {
-                break-inside: avoid;
-            }
-            /* Company header for printed report */
-            .print-header {
-                display: block !important;
-                margin-bottom: 20px;
-            }
-            /* Make sure contact info is included in print */
-            #printButtonContainer {
-                display: block !important;
-            }
-            #printButtonContainer .bg-light {
-                background-color: white !important;
-                border: 1px solid #dee2e6;
-                margin-top: 30px !important;
-            }
-        }
-        
-        .print-header {
-            display: none;
-        }
-    </style>
+    <title>ClickPlumbing - Commercial Plumbing, Electrical & HVAC Services</title>
+    <meta name="description" content="Professional commercial plumbing, electrical, and HVAC services. ClickPlumbing delivers reliable solutions for your business needs.">
+    <link rel="icon" type="image/png" href="click hand logo square.png">
+    <link rel="shortcut icon" type="image/png" href="click hand logo square.png">
+    <link rel="apple-touch-icon" href="click hand logo square.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="calculator-container">
-                    <h1 class="text-center">Car Wash Water Savings Calculator</h1>
-                    
-                    <form id="calculatorForm">
-                        <div class="mb-3">
-                            <label for="carsPerDay" class="form-label">Number of Cars Per Day</label>
-                            <div class="input-group">
-                                <span class="input-group-text">🚗</span>
-                                <input type="number" class="form-control" id="carsPerDay" min="1" required>
-                            </div>
-                            <div class="text-end mt-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" id="seeAverageBtn">See Tunnel Wash Average</button>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="costPer1000Gallons" class="form-label">Cost Per 1000 Gallons: <span id="costPer1000GallonsValue">$15.00</span></label>
-                            <input type="range" class="form-range" id="costPer1000Gallons" min="6" max="24" step="0.5" value="15">
-                            <div class="d-flex justify-content-between small text-muted">
-                                <span>$6.00</span>
-                                <span>$24.00</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="waterBill" class="form-label">Monthly Water Bill ($)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">💧</span>
-                                <input type="number" class="form-control" id="waterBill" min="0" step="0.01" required>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="sewerBill" class="form-label">Monthly Sewer Bill ($)</label>
-                            <div class="input-group">
-                                <span class="input-group-text">🚿</span>
-                                <input type="number" class="form-control" id="sewerBill" min="0" step="0.01" required>
-                            </div>
-                        </div>
-                        
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo black h.svg" alt="ClickPlumbing" class="logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-                        
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="sewerDiscount">
-                            <label class="form-check-label" for="sewerDiscount">
-                                I want you to petition my city to drop my sewer bill by 80% for using a full reclaim system like yours.
-                            </label>
-                        </div>
-                        
-                        <div class="results-container" id="resultsContainer">
-                            <h4 class="text-center mb-4">Your Savings Summary</h4>
-                            
-                            <div class="mb-4">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card h-100">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Current Gallons Used Per Car</h5>
-                                                <div class="d-flex align-items-center justify-content-center my-3">
-                                                    <span class="fs-1 me-2">🚰</span>
-                                                    <h2 class="mb-0"><span id="gallonsPerCar">--</span> <small>gal</small></h2>
-                                                </div>
-                                                <p class="card-text text-muted small">Calculated from your water bill, cost per gallon, and car count</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card h-100">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Water and Sewer Cost Per Car</h5>
-                                                <div class="d-flex align-items-center justify-content-center my-3">
-                                                    <span class="fs-1 me-2">💰</span>
-                                                    <h2 class="mb-0">$<span id="costPerCar">--</span></h2>
-                                                </div>
-                                                <p class="card-text text-muted small">(Water Bill + Sewer Bill) ÷ (Cars Per Day × 30.25 Days in a Month)</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="results">
-                                <p class="text-center text-muted">Enter your information above to see potential savings.</p>
-                            </div>
-                            <div class="text-center mt-4" id="printButtonContainer" style="display: none;">
-                                <button type="button" class="btn btn-primary" id="printReportBtn">
-                                    <i class="bi bi-printer"></i> Print Report
-                                </button>
-                                <div class="mt-4 p-3 bg-light rounded">
-                                    <p class="mb-1"><strong>Want to speak with us about making this report a reality?</strong></p>
-                                    <p class="mb-0">Even if you already have reclaim we can install an "adder package" at a lower cost than a full unit. Call us and leave a message at <a href="tel:18012525155">1-801-252-5155</a> or email us at <a href="mailto:support@clickplumbing.com">support@clickplumbing.com</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Professional Commercial Services</h1>
+                <p class="hero-subtitle">Plumbing • Electrical • HVAC</p>
+                <p class="hero-description">
+                    ClickPlumbing delivers reliable, professional commercial services for your business. 
+                    From emergency repairs to complete installations, we're your trusted partner.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Free Quote</a>
+                    <a href="tel:+18012525155" class="btn btn-secondary">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="service-icons">
+                    <div class="service-icon">
+                        <i class="fas fa-wrench"></i>
+                        <span>Plumbing</span>
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                        <span>Electrical</span>
+                    </div>
+                    <div class="service-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span>HVAC</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // Get all form elements
-        const form = document.getElementById('calculatorForm');
-        const carsPerDayInput = document.getElementById('carsPerDay');
-        const costPer1000GallonsSlider = document.getElementById('costPer1000Gallons');
-        const costPer1000GallonsValue = document.getElementById('costPer1000GallonsValue');
-        const waterBillInput = document.getElementById('waterBill');
-        const sewerBillInput = document.getElementById('sewerBill');
-        const gallonsPerCarElement = document.getElementById('gallonsPerCar');
-        const costPerCarElement = document.getElementById('costPerCar');
-        const sewerDiscountCheckbox = document.getElementById('sewerDiscount');
-        const resultsDiv = document.getElementById('results');
-        const printReportBtn = document.getElementById('printReportBtn');
-        const seeAverageBtn = document.getElementById('seeAverageBtn');
-        
-        // Add event listeners to all inputs
-        const inputs = [carsPerDayInput, costPer1000GallonsSlider, waterBillInput, sewerBillInput, sewerDiscountCheckbox];
-        inputs.forEach(input => {
-            input.addEventListener('input', calculateSavings);
-        });
-        
-        // Update the cost per 1000 gallons value display when slider changes
-        costPer1000GallonsSlider.addEventListener('input', function() {
-            costPer1000GallonsValue.textContent = '$' + parseFloat(this.value).toFixed(2);
-        });
-        
-        // Prevent scroll wheel from changing number input values
-        const numberInputs = document.querySelectorAll('input[type="number"]');
-        numberInputs.forEach(input => {
-            input.addEventListener('wheel', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-        });
-        
-        // Add print button functionality
-        printReportBtn.addEventListener('click', function() {
-            window.print();
-        });
-        
-        // Add See Average button functionality
-        seeAverageBtn.addEventListener('click', function() {
-            // Set average values
-            carsPerDayInput.value = 150;
-            waterBillInput.value = 10000;
-            sewerBillInput.value = 5000;
-            costPer1000GallonsSlider.value = 15;
-            costPer1000GallonsValue.textContent = '$15.00';
-            
-            // Trigger calculation
-            calculateSavings();
-        });
-        
-        // Main calculation function
-        function calculateSavings() {
-            // Get input values
-            const carsPerDay = parseFloat(carsPerDayInput.value) || 0;
-            const waterBill = parseFloat(waterBillInput.value) || 0;
-            const sewerBill = parseFloat(sewerBillInput.value) || 0;
-            const applySewerDiscount = sewerDiscountCheckbox.checked;
-            
-            // Check if we have all required inputs
-            if (carsPerDay <= 0 || waterBill < 0 || sewerBill < 0) {
-                resultsDiv.innerHTML = '<p class="text-center text-muted">Please enter valid values in all fields.</p>';
-                return;
-            }
-            
-            // Initialize gallons per car
-            let gallonsPerCar = null; // No default value
-            
-            // Calculate total monthly cars
-            const totalMonthlyCars = carsPerDay * 30;
-            
-            // Only calculate gallons per car if we have both car count and water bill
-            if (carsPerDay > 0 && waterBill > 0) {
-                // Get the cost per 1000 gallons from the slider
-                const costPer1000Gallons = parseFloat(costPer1000GallonsSlider.value);
-                
-                // Convert to cost per gallon (divide by 1000)
-                const costPerGallon = costPer1000Gallons / 1000;
-                
-                // Estimate total monthly gallons based on water bill and the slider value
-                const estimatedTotalGallons = waterBill / costPerGallon;
-                gallonsPerCar = estimatedTotalGallons / totalMonthlyCars;
-                
-                // Round to nearest whole number for display
-                gallonsPerCar = Math.round(gallonsPerCar);
-                
-                // Ensure value is between 5 and 5000 gallons
-                gallonsPerCar = Math.max(5, Math.min(5000, gallonsPerCar));
-            }
-            
-            // Update the gallons per car display
-            if (gallonsPerCar !== null) {
-                if (gallonsPerCar <= 5) {
-                    gallonsPerCarElement.textContent = '5 or less';
-                } else if (gallonsPerCar >= 5000) {
-                    gallonsPerCarElement.textContent = '5000 or more';
-                } else {
-                    gallonsPerCarElement.textContent = gallonsPerCar;
-                }
-            } else {
-                gallonsPerCarElement.textContent = '--';
-            }
-            
-            // Calculate water and sewer cost per car (using 30.25 days per month as requested)
-            if (carsPerDay > 0 && (waterBill > 0 || sewerBill > 0)) {
-                const costPerCar = (waterBill + sewerBill) / (carsPerDay * 30.25);
-                costPerCarElement.textContent = costPerCar.toFixed(2);
-            } else {
-                costPerCarElement.textContent = '--';
-            }
-            
-            // Calculate total gallons
-            const totalGallons = gallonsPerCar !== null ? totalMonthlyCars * gallonsPerCar : 0;
-            
-            // Calculate cost per gallon for current system (no discount)
-            const currentCostPerGallon = (waterBill + sewerBill) / totalGallons;
-            
-            // Calculate current cost per car (no discount)
-            const currentCostPerCar = currentCostPerGallon * gallonsPerCar;
-            
-            // Apply sewer discount only for new system if checkbox is checked
-            const effectiveSewerBill = applySewerDiscount ? sewerBill * 0.2 : sewerBill;
-            
-            // Calculate cost per gallon for new system (with discount if applied)
-            const newSystemCostPerGallon = (waterBill + effectiveSewerBill) / totalGallons;
-            
-            // Calculate new system cost per car (with discount if applied)
-            const newCostPerCar = newSystemCostPerGallon * 13; // 13 gallons with new system
-            
-            // Calculate savings
-            const savingsPerCar = currentCostPerCar - newCostPerCar;
-            const monthlySavings = savingsPerCar * totalMonthlyCars;
-            
-            // Format results
-            const formatCurrency = (value) => '$' + value.toFixed(2);
-            
-            // Generate results HTML
-            let resultsHTML = `
-                <div class="print-header">
-                    <h2>Click Plumbing Water Savings Report</h2>
-                    <p>Date: ${new Date().toLocaleDateString()}</p>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Current Monthly Cars:</strong> ${totalMonthlyCars.toLocaleString()}</p>
-                        <p><strong>Current Monthly Gallons:</strong> ${totalGallons.toLocaleString()}</p>
-                        <p><strong>Your Cost Per Car:</strong> ${formatCurrency(currentCostPerCar)}</p>
-                        <p><strong>Potential Water Cost Per Car:</strong> ${formatCurrency(newCostPerCar)}</p>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive commercial solutions for all your business needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon-large">
+                        <i class="fas fa-wrench"></i>
                     </div>
-                    <div class="col-md-6">
-                        <p><strong>Per-Car Savings:</strong> <span class="savings-highlight">${formatCurrency(savingsPerCar)}</span></p>
-                        <p><strong>Monthly Savings:</strong> <span class="savings-highlight">$${monthlySavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></p>
-                        <p><strong>Annual Savings:</strong> <span class="savings-highlight">$${(monthlySavings * 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span></p>
-                        ${applySewerDiscount ? '<p><strong>Note:</strong> 80% sewer discount applied</p>' : ''}
+                    <h3>Commercial Plumbing</h3>
+                    <ul class="service-list">
+                        <li>Emergency repairs & maintenance</li>
+                        <li>Pipe installation & replacement</li>
+                        <li>Water heater services</li>
+                        <li>Drain cleaning & unclogging</li>
+                        <li>Bathroom & kitchen installations</li>
+                        <li>Backflow prevention</li>
+                    </ul>
+                    <a href="#contact" class="service-btn">Get Quote</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon-large">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Electrical Services</h3>
+                    <ul class="service-list">
+                        <li>Commercial electrical installations</li>
+                        <li>Emergency electrical repairs</li>
+                        <li>Lighting design & installation</li>
+                        <li>Panel upgrades & maintenance</li>
+                        <li>Generator installation</li>
+                        <li>Code compliance & inspections</li>
+                    </ul>
+                    <a href="#contact" class="service-btn">Get Quote</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon-large">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    <h3>HVAC Services</h3>
+                    <ul class="service-list">
+                        <li>Heating & cooling installation</li>
+                        <li>System maintenance & repairs</li>
+                        <li>Ductwork design & installation</li>
+                        <li>Indoor air quality solutions</li>
+                        <li>Energy efficiency upgrades</li>
+                        <li>Commercial refrigeration</li>
+                    </ul>
+                    <a href="#contact" class="service-btn">Get Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose ClickPlumbing?</h2>
+                <p>We deliver excellence in every project</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Emergency Service</h3>
+                    <p>Round-the-clock availability for urgent repairs and emergencies</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Licensed & Insured</h3>
+                    <p>Fully licensed professionals with comprehensive insurance coverage</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Quality Guarantee</h3>
+                    <p>100% satisfaction guarantee on all our work and services</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Competitive Pricing</h3>
+                    <p>Fair, transparent pricing with no hidden fees or surprises</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About ClickPlumbing</h2>
+                    <p>
+                        With years of experience in commercial services, ClickPlumbing has built a reputation 
+                        for reliability, quality, and customer satisfaction. Our team of skilled professionals 
+                        is dedicated to providing comprehensive solutions for your business needs.
+                    </p>
+                    <p>
+                        We understand that commercial operations can't afford downtime. That's why we offer 
+                        fast response times, quality workmanship, and ongoing maintenance programs to keep 
+                        your business running smoothly.
+                    </p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>500+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat">
+                            <h3>15+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat">
+                            <h3>100%</h3>
+                            <p>Satisfaction Rate</p>
+                        </div>
                     </div>
                 </div>
-                <div class="text-center mt-3">
-                    <p class="mb-0"><small>We think you may be able to reduce your per car water usage from ${gallonsPerCar} gallons to 13 gallons per car with our reclaim system. Based on you reporting a $${waterBill.toLocaleString()} water bill, $${sewerBill.toLocaleString()} sewer bill, and ${carsPerDay.toLocaleString()} cars per day.</small></p>
+                <div class="about-image">
+                    <img src="IMG_0497.jpeg" alt="ClickPlumbing Professional Team" class="team-photo">
                 </div>
-            `;
-            
-            resultsDiv.innerHTML = resultsHTML;
-            
-            // Show print button when we have valid results
-            document.getElementById('printButtonContainer').style.display = 'block';
-        }
-    </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to get started? Contact us today for a free quote</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p>+1 801-252-5155</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>office@clickplumbing.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Address</h3>
+                            <p>5501 Balcones Dr A141<br>Austin, TX 78731</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Hours</h3>
+                            <p>Mon-Fri: 7AM-6PM<br>Emergency: 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ClickPlumbing</h3>
+                    <p>Professional commercial services for plumbing, electrical, and HVAC needs.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Commercial Plumbing</a></li>
+                        <li><a href="#services">Electrical Services</a></li>
+                        <li><a href="#services">HVAC Services</a></li>
+                        <li><a href="#contact">Emergency Repairs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 801-252-5155</p>
+                    <p><i class="fas fa-envelope"></i> office@clickplumbing.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 5501 Balcones Dr A141, Austin, TX 78731</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ClickPlumbing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
