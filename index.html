@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- Emergency Bar -->
+    <div class="emergency-bar">
+        <a href="tel:+15123600599">Emergency? Call +1 512-360-0599</a>&nbsp;&nbsp;We want to be there for you.
+    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -64,11 +68,11 @@
                         <i class="fas fa-wrench"></i>
                         <span>Plumbing</span>
                     </div>
-                    <div class="service-icon">
+                    <div class="service-icon electrical-icon">
                         <i class="fas fa-bolt"></i>
                         <span>Electrical</span>
                     </div>
-                    <div class="service-icon">
+                    <div class="service-icon hvac-icon">
                         <i class="fas fa-thermometer-half"></i>
                         <span>HVAC</span>
                     </div>
@@ -101,7 +105,7 @@
                     <a href="#contact" class="service-btn">Get Quote</a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon-large">
+                    <div class="service-icon-large electrical-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>Electrical Services</h3>
@@ -116,7 +120,7 @@
                     <a href="#contact" class="service-btn">Get Quote</a>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon-large">
+                    <div class="service-icon-large hvac-icon">
                         <i class="fas fa-thermometer-half"></i>
                     </div>
                     <h3>HVAC Services</h3>
@@ -181,32 +185,40 @@
                 <div class="about-text">
                     <h2>About ClickPlumbing</h2>
                     <p>
-                        With years of experience in commercial services, ClickPlumbing has built a reputation 
+                        With years of experience in residential and commercial services, ClickPlumbing has built a reputation 
                         for reliability, quality, and customer satisfaction. Our team of skilled professionals 
                         is dedicated to providing comprehensive solutions for your business needs.
                     </p>
                     <p>
-                        We understand that commercial operations can't afford downtime. That's why we offer 
+                        We understand that operations can't afford downtime. That's why we offer 
                         fast response times, quality workmanship, and ongoing maintenance programs to keep 
                         your business running smoothly.
                     </p>
                     <div class="stats">
                         <div class="stat">
-                            <h3>500+</h3>
+                            <h3>600+</h3>
                             <p>Projects Completed</p>
                         </div>
                         <div class="stat">
-                            <h3>15+</h3>
+                            <h3>18+</h3>
                             <p>Years Experience</p>
                         </div>
-                        <div class="stat">
-                            <h3>100%</h3>
-                            <p>Satisfaction Rate</p>
+                        <div class="stat stat-reviews">
+                            <a href="https://maps.app.goo.gl/U2NmdXhwGhPFxHGy9" target="_blank" rel="noopener noreferrer" class="stat-link">
+                                <h3><span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></h3>
+                                <p>Avg Google Review: 5.0</p>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="IMG_0497.jpeg" alt="ClickPlumbing Professional Team" class="team-photo">
+                    <img src="click-pics/web-ready/img_4105.jpg" alt="ClickPlumbing Professional Team" class="team-photo">
+                </div>
+            </div>
+            <div class="about-gallery">
+                <h3>Our Work</h3>
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Images loaded dynamically from gallery-images.json -->
                 </div>
             </div>
         </div>
@@ -295,7 +307,7 @@
                     <h4>Contact Info</h4>
                     <p><i class="fas fa-phone"></i> +1 512-360-0599</p>
                     <p><i class="fas fa-envelope"></i> office@clickplumbing.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 5501 Balcones Dr A141, Austin, TX 78731</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 5501 Balcones Dr A141<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Austin, TX 78731</p>
                 </div>
             </div>
             <div class="footer-bottom">

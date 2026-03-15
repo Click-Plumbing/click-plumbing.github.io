@@ -19,7 +19,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 70; // Account for fixed navbar
+            const offsetTop = target.offsetTop - 106; // Account for fixed navbar + emergency bar
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
@@ -42,8 +42,7 @@ window.addEventListener('scroll', () => {
 
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', function(e) {
+if (contactForm) contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
     // Get form data
@@ -203,6 +202,40 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+
+// Load gallery images from manifest
+const GALLERY_FALLBACK = ['img_0001.jpg', 'img_0002.jpg', 'img_0003.jpg', 'img_0137.jpg', 'img_0142.jpg', 'img_0143.jpg'];
+const GALLERY_FIRST = ['img_0002.jpg', 'img_5029.jpg', 'img_5210.jpg', 'img_5867.jpg', 'img_0001.jpg', 'img_5286.jpg'];
+const GALLERY_AFTER_FIRST = ['img_0003.jpg', 'img_0137.jpg', 'img_0142.jpg', 'img_0143.jpg', 'img_0616.jpg', 'img_1797.jpg', 'img_2583.jpg', 'img_3049.jpg', 'img_3546.jpg', 'img_4047.jpg', 'img_0144.jpg', 'img_0147.jpg', 'IMG_0497.jpeg', 'img_6331.jpg', 'img_6904.jpg', 'img_7063.jpg', 'img_7423.jpg', 'img_9129.jpg'];
+
+function orderGallery(filenames) {
+    const filtered = filenames.filter(f => !f.toLowerCase().includes('screenshot'));
+    const ordered = [...GALLERY_FIRST, ...GALLERY_AFTER_FIRST];
+    return ordered.filter(f => (filtered.includes(f) || f === 'IMG_0497.jpeg') && f !== 'img_4105.jpg');
+}
+
+function loadGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+
+    function renderImages(filenames) {
+        grid.innerHTML = '';
+        filenames.forEach(filename => {
+            const img = document.createElement('img');
+            img.src = filename === 'IMG_0497.jpeg' ? 'IMG_0497.jpeg' : `click-pics/web-ready/${filename}`;
+            img.alt = 'ClickPlumbing commercial project';
+            img.classList.add('loading', 'loaded');
+            grid.appendChild(img);
+        });
+    }
+
+    fetch('click-pics/web-ready/gallery-images.json')
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(filenames => renderImages(orderGallery(filenames)))
+        .catch(() => renderImages(GALLERY_FALLBACK));
+}
+
+document.addEventListener('DOMContentLoaded', loadGallery);
 
 // Phone number formatting
 const phoneInput = document.getElementById('phone');
