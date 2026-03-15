@@ -206,12 +206,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // Load gallery images from manifest
 const GALLERY_FALLBACK = ['img_0001.jpg', 'img_0002.jpg', 'img_0003.jpg', 'img_0137.jpg', 'img_0142.jpg', 'img_0143.jpg'];
 const GALLERY_FIRST = ['img_0002.jpg', 'img_5029.jpg', 'img_5210.jpg', 'img_5867.jpg', 'img_0001.jpg', 'img_5286.jpg'];
-const GALLERY_AFTER_FIRST = ['img_0003.jpg', 'img_0137.jpg', 'img_0142.jpg', 'img_0143.jpg', 'img_0616.jpg', 'img_1797.jpg', 'img_2583.jpg', 'img_3049.jpg', 'img_3546.jpg', 'img_4047.jpg', 'img_0144.jpg', 'img_0147.jpg', 'IMG_0497.jpeg', 'img_6331.jpg', 'img_6904.jpg', 'img_7063.jpg', 'img_7423.jpg', 'img_9129.jpg'];
+const GALLERY_AFTER_FIRST = ['img_0003.jpg', 'img_0137.jpg', 'img_0142.jpg', 'img_0143.jpg', 'img_0616.jpg', 'img_1797.jpg', 'img_2583.jpg', 'img_3049.jpg', 'img_3546.jpg', 'img_0147.jpg', 'img_6331.jpg', 'img_6904.jpg', 'img_7063.jpg', 'img_7423.jpg', 'img_9129.jpg'];
+const GALLERY_EXCLUDE = ['img_4105.jpg', 'img_4047.jpg', 'img_0144.jpg', 'IMG_0497.jpeg'];
 
 function orderGallery(filenames) {
     const filtered = filenames.filter(f => !f.toLowerCase().includes('screenshot'));
     const ordered = [...GALLERY_FIRST, ...GALLERY_AFTER_FIRST];
-    return ordered.filter(f => (filtered.includes(f) || f === 'IMG_0497.jpeg') && f !== 'img_4105.jpg');
+    return ordered.filter(f => filtered.includes(f) && !GALLERY_EXCLUDE.includes(f));
 }
 
 function loadGallery() {
