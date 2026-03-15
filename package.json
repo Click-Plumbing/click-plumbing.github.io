@@ -1,7 +1,7 @@
 {
   "name": "clickplumbing-website",
   "version": "1.0.0",
-  "description": "Professional website for ClickPlumbing - Commercial Plumbing, Electrical & HVAC Services",
+  "description": "Professional website for Click Plumbing - Commercial Plumbing, Electrical & HVAC Services",
   "main": "index.html",
   "scripts": {
     "start": "npx http-server . -p 3000 -o",
@@ -18,7 +18,7 @@
     "website",
     "business"
   ],
-  "author": "ClickPlumbing",
+  "author": "Click Plumbing",
   "license": "MIT",
   "devDependencies": {
     "http-server": "^14.1.1",

@@ -224,7 +224,7 @@ function loadGallery() {
         filenames.forEach(filename => {
             const img = document.createElement('img');
             img.src = filename === 'IMG_0497.jpeg' ? 'IMG_0497.jpeg' : `click-pics/web-ready/${filename}`;
-            img.alt = 'ClickPlumbing commercial project';
+            img.alt = 'Click Plumbing commercial project';
             img.classList.add('loading', 'loaded');
             grid.appendChild(img);
         });
@@ -424,7 +424,7 @@ document.head.appendChild(errorStyles);
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('ClickPlumbing website loaded successfully!');
+    console.log('Click Plumbing website loaded successfully!');
     
     // Add loading animation to hero section
     const hero = document.querySelector('.hero');
