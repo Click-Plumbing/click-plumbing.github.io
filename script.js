@@ -1,3 +1,22 @@
+function updateEmergencyBarHeight() {
+    const bar = document.querySelector('.emergency-bar');
+    if (bar) {
+        document.documentElement.style.setProperty('--emergency-bar-h', bar.offsetHeight + 'px');
+    }
+}
+
+function getFixedHeaderOffset() {
+    const bar = document.querySelector('.emergency-bar');
+    const nav = document.querySelector('.navbar');
+    return (bar?.offsetHeight ?? 36) + (nav?.offsetHeight ?? 70);
+}
+
+updateEmergencyBarHeight();
+window.addEventListener('resize', updateEmergencyBarHeight);
+if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateEmergencyBarHeight);
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -19,7 +38,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 106; // Account for fixed navbar + emergency bar
+            const offsetTop = target.offsetTop - getFixedHeaderOffset();
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
