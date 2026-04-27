@@ -156,7 +156,7 @@ img {
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
-    padding-top: var(--fixed-header-offset, calc(var(--emergency-bar-h, 36px) + 70px));
+    padding-top: calc(var(--fixed-header-offset, calc(var(--emergency-bar-h, 36px) + 70px)) + 3rem);
     display: flex;
     align-items: center;
     color: white;
