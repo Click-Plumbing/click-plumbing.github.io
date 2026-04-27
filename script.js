@@ -1,8 +1,11 @@
 function updateEmergencyBarHeight() {
     const bar = document.querySelector('.emergency-bar');
+    const nav = document.querySelector('.navbar');
     if (bar) {
         document.documentElement.style.setProperty('--emergency-bar-h', bar.offsetHeight + 'px');
     }
+    const offset = (bar?.offsetHeight ?? 36) + (nav?.offsetHeight ?? 70);
+    document.documentElement.style.setProperty('--fixed-header-offset', offset + 'px');
 }
 
 function getFixedHeaderOffset() {
