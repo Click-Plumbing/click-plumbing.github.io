@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Careers - Click Plumbing</title>
+    <meta name="description" content="Join the Click Plumbing team. Apply today for plumbing, electrical, HVAC, and office positions in Austin, TX.">
+    <link rel="icon" type="image/png" href="click hand logo square.png">
+    <link rel="shortcut icon" type="image/png" href="click hand logo square.png">
+    <link rel="apple-touch-icon" href="click hand logo square.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Emergency Bar -->
+    <a href="tel:+15123600599" class="emergency-bar" aria-label="Emergency, call 512-360-0599">
+        <span class="emergency-bar__phone">Emergency? Call +1 512-360-0599</span>
+        <span class="emergency-bar__tagline">We want to be there for you.</span>
+    </a>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html"><img src="logo black h.svg" alt="Click Plumbing" class="logo"></a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="apply.html" class="nav-link nav-link-active">Careers</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Apply Hero -->
+    <section class="apply-hero">
+        <div class="container">
+            <h1>Join the Click Team</h1>
+            <p>We're always looking for skilled, reliable people who take pride in their work. Fill out the application below and we'll be in touch.</p>
+        </div>
+    </section>
+
+    <!-- Apply Form -->
+    <section class="apply-section">
+        <div class="container apply-container">
+            <form id="applyForm" class="apply-form" novalidate>
+                <fieldset class="form-fieldset">
+                    <legend>Contact</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full name <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" required autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="(512) 555-0100">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City / area</label>
+                            <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="Austin, TX">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-fieldset">
+                    <legend>Position</legend>
+                    <div class="form-group">
+                        <span class="label-like">Position interested in (select all that apply) <span class="required">*</span></span>
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="Plumbing">
+                                <span>Plumbing</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="Electrical">
+                                <span>Electrical</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="HVAC">
+                                <span>HVAC</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="Helper-Apprentice">
+                                <span>Helper / Apprentice</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="Office">
+                                <span>Office</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="checkbox" name="position" value="Other">
+                                <span>Other</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label-like">Employment type</span>
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="radio" name="employmentType" value="Full-time">
+                                <span>Full-time</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="employmentType" value="Part-time">
+                                <span>Part-time</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="employmentType" value="Either">
+                                <span>Either</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Earliest start date</label>
+                        <input type="date" id="startDate" name="startDate">
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-fieldset">
+                    <legend>Experience</legend>
+                    <div class="form-group">
+                        <label for="yearsExperience">Years of experience in the trades</label>
+                        <select id="yearsExperience" name="yearsExperience">
+                            <option value="">Select...</option>
+                            <option value="0 (this is okay, hard work beats skill)">0 (this is okay, hard work beats skill)</option>
+                            <option value="1-2 years">1-2 years</option>
+                            <option value="3-5 years">3-5 years</option>
+                            <option value="6-10 years">6-10 years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="licenses">Licenses or certifications held</label>
+                        <textarea id="licenses" name="licenses" rows="3" placeholder="e.g., TX Master Plumber #12345, EPA 608, OSHA 10..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="workHistory">Past employers / brief work history</label>
+                        <textarea id="workHistory" name="workHistory" rows="4" placeholder="Company, role, dates..."></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-fieldset">
+                    <legend>Logistics</legend>
+                    <div class="form-group">
+                        <span class="label-like">Valid driver's license?</span>
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="radio" name="driversLicense" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="driversLicense" value="No">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label-like">Reliable transportation?</span>
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="radio" name="transportation" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="transportation" value="No">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="label-like">Authorized to work in the US?</span>
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="radio" name="workAuthorized" value="Yes">
+                                <span>Yes</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="workAuthorized" value="No">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-fieldset">
+                    <legend>About you</legend>
+                    <div class="form-group">
+                        <label for="whyClick">Why do you want to work at Click?</label>
+                        <textarea id="whyClick" name="whyClick" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="other">Anything else you'd like us to know?</label>
+                        <textarea id="other" name="other" rows="3"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="apply-actions">
+                    <button type="submit" class="btn btn-primary apply-submit">
+                        <i class="fas fa-paper-plane"></i> Send Application
+                    </button>
+                </div>
+
+                <div id="applyPostSubmit" class="apply-post-submit" hidden>
+                    <p class="apply-note">
+                        <i class="fas fa-info-circle"></i>
+                        Clicking <strong>Send Application</strong> will open your default email app with your answers ready to send. Just review and hit Send. If nothing happens, your browser may not have an email app configured &mdash; please email us directly at <a href="mailto:office@clickplumbing.com">office@clickplumbing.com</a>.
+                    </p>
+                    <div class="apply-actions">
+                        <button type="button" id="applyCopyBtn" class="btn btn-secondary-blue apply-copy">
+                            <i class="fas fa-copy"></i> Copy to clipboard for Email
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <p class="apply-flyer-link">
+                <i class="fas fa-print"></i>
+                Help us spread the word &mdash;
+                <a href="careers-flyer.html" target="_blank" rel="noopener">print our Now Hiring flyer</a>
+                and post it where job-seekers will see it.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Click Plumbing</h3>
+                    <p>Professional commercial services for plumbing, electrical, and HVAC needs.</p>
+                    <ul>
+                        <li><a href="https://drive.google.com/drive/folders/1HhzQ8Sqn8-9_EbI2uLtLZ6llf1tm9gYr" target="_blank" rel="noopener noreferrer">Whitepaper</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="index.html#services">Plumbing</a></li>
+                        <li><a href="index.html#services">Electrical</a></li>
+                        <li><a href="index.html#services">HVAC</a></li>
+                        <li><a href="index.html#contact">Emergency Repairs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="apply.html">Careers</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 512-360-0599</p>
+                    <p><i class="fas fa-envelope"></i> office@clickplumbing.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 5501 Balcones Dr A141<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Austin, TX 78731</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="js-current-year">2026</span> Click Plumbing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

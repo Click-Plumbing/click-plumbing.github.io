@@ -460,3 +460,178 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
 });
+
+// Apply form -> mailto draft
+const applyForm = document.getElementById('applyForm');
+if (applyForm) {
+    applyForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const get = (name) => (applyForm.elements[name]?.value ?? '').trim();
+        const getRadio = (name) => {
+            const el = applyForm.querySelector(`input[name="${name}"]:checked`);
+            return el ? el.value : '';
+        };
+        const getCheckboxValues = (name) =>
+            Array.from(applyForm.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+
+        const positions = getCheckboxValues('position');
+
+        const fields = {
+            fullName: get('fullName'),
+            phone: get('phone'),
+            email: get('email'),
+            city: get('city'),
+            position: positions.join(', '),
+            employmentType: getRadio('employmentType'),
+            startDate: get('startDate'),
+            yearsExperience: get('yearsExperience'),
+            licenses: get('licenses'),
+            workHistory: get('workHistory'),
+            driversLicense: getRadio('driversLicense'),
+            transportation: getRadio('transportation'),
+            workAuthorized: getRadio('workAuthorized'),
+            whyClick: get('whyClick'),
+            other: get('other')
+        };
+
+        const required = [
+            { name: 'fullName', label: 'Full name' },
+            { name: 'phone', label: 'Phone' },
+            { name: 'email', label: 'Email' }
+        ];
+
+        applyForm.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+        applyForm.querySelectorAll('.field-error').forEach(el => el.remove());
+
+        const missing = [];
+        required.forEach(({ name, label }) => {
+            if (!fields[name]) {
+                missing.push(label);
+                const input = applyForm.elements[name];
+                if (input) input.classList.add('error');
+            }
+        });
+
+        if (positions.length === 0) {
+            missing.push('Position');
+            applyForm.querySelectorAll('input[name="position"]')
+                .forEach(cb => cb.closest('.radio-option')?.classList.add('error'));
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (fields.email && !emailRegex.test(fields.email)) {
+            applyForm.elements.email?.classList.add('error');
+            missing.push('valid Email');
+        }
+
+        if (missing.length) {
+            showNotification(`Please fill in: ${missing.join(', ')}.`, 'error');
+            const firstError = applyForm.querySelector('.error');
+            firstError?.focus();
+            return;
+        }
+
+        const line = (label, value) => value ? `  ${label}: ${value}` : `  ${label}: -`;
+
+        const bodyLines = [
+            'JOB APPLICATION - Click Plumbing',
+            '',
+            'CONTACT',
+            line('Name', fields.fullName),
+            line('Phone', fields.phone),
+            line('Email', fields.email),
+            line('City', fields.city),
+            '',
+            'POSITION',
+            line('Interested in', fields.position),
+            line('Type', fields.employmentType),
+            line('Earliest start', fields.startDate),
+            '',
+            'EXPERIENCE',
+            line('Years', fields.yearsExperience),
+            line('Licenses/certs', fields.licenses),
+            line('Work history', fields.workHistory),
+            '',
+            'LOGISTICS',
+            line("Driver's license", fields.driversLicense),
+            line('Transportation', fields.transportation),
+            line('Work authorized', fields.workAuthorized),
+            '',
+            'ABOUT',
+            line('Why Click', fields.whyClick),
+            line('Other', fields.other)
+        ];
+
+        const subject = `Job Application - ${fields.fullName} - ${fields.position}`;
+        const body = bodyLines.join('\n');
+        const mailto = `mailto:office@clickplumbing.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const clipboardText = `To: office@clickplumbing.com\nSubject: ${subject}\n\n${body}`;
+
+        const postSubmit = document.getElementById('applyPostSubmit');
+        const copyBtn = document.getElementById('applyCopyBtn');
+        if (postSubmit) {
+            postSubmit.hidden = false;
+            if (copyBtn) copyBtn.dataset.clipboard = clipboardText;
+        }
+
+        showNotification('Opening your email app... please review and hit Send.', 'success');
+        window.location.href = mailto;
+    });
+
+    const copyBtnEl = document.getElementById('applyCopyBtn');
+    if (copyBtnEl) {
+        const defaultLabel = copyBtnEl.innerHTML;
+        let resetTimer = null;
+
+        copyBtnEl.addEventListener('click', async () => {
+            const text = copyBtnEl.dataset.clipboard || '';
+            if (!text) return;
+
+            let copied = false;
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                    copied = true;
+                }
+            } catch (err) {
+                copied = false;
+            }
+
+            if (!copied) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '0';
+                ta.style.left = '0';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                    copied = document.execCommand('copy');
+                } catch (err) {
+                    copied = false;
+                }
+                ta.remove();
+            }
+
+            if (copied) {
+                copyBtnEl.classList.add('is-copied');
+                copyBtnEl.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                showNotification('Application copied. Paste it into your webmail and send to office@clickplumbing.com.', 'success');
+                if (resetTimer) clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => {
+                    copyBtnEl.classList.remove('is-copied');
+                    copyBtnEl.innerHTML = defaultLabel;
+                }, 2200);
+            } else {
+                showNotification('Could not copy automatically. Please select the text manually.', 'error');
+            }
+        });
+    }
+}
+
+document.querySelectorAll('.js-current-year').forEach(el => {
+    el.textContent = new Date().getFullYear();
+});
