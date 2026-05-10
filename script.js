@@ -492,7 +492,8 @@ if (applyForm) {
             transportation: getRadio('transportation'),
             workAuthorized: getRadio('workAuthorized'),
             whyClick: get('whyClick'),
-            other: get('other')
+            other: get('other'),
+            inspiration: get('inspiration')
         };
 
         const required = [
@@ -560,7 +561,8 @@ if (applyForm) {
             '',
             'ABOUT',
             line('Why Click', fields.whyClick),
-            line('Other', fields.other)
+            line('Other', fields.other),
+            line('What inspired you to apply', fields.inspiration)
         ];
 
         const subject = `Job Application - ${fields.fullName} - ${fields.position}`;
