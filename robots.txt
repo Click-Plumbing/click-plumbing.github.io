@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/
+# Click Plumbing - clickplumbing.com
+
+User-agent: *
+Allow: /
+Disallow: /careers-flyer.html
+
+# Generic crawl-delay courtesy hint (most major bots ignore this)
+Crawl-delay: 1
+
+Sitemap: https://clickplumbing.com/sitemap.xml
